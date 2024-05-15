@@ -1,0 +1,161 @@
+:root{
+  --main-color: rgb(78, 14, 14);
+  --main-colorT:  rgba(78, 14, 14,0.2)
+}
+body{
+  font-family: Arial;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h2{
+  color: var(--main-color);
+}
+.taskContainer{
+  height: 300px;
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+/* .taskContainer::-webkit-scrollbar{
+  width: 15px;
+  border-radius: 3px;
+} */
+.taskContainer::-webkit-scrollbar-button{
+  background: red;
+}
+
+.taskDiv{
+  display: flex;
+  align-items: center;
+  width: 300px;
+  box-shadow: 0px 2px 2px var(--main-colorT) ;
+  padding: 0 15px;
+  margin-bottom: 15px;
+  color: var(--main-color);
+}
+.taskDiv div{
+  margin-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+.taskDiv div p{
+  width: 75%;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+}
+.taskDiv span{
+  font-weight: bold;
+  cursor: pointer;
+}
+.completedTask{
+  text-decoration: line-through;
+}
+.addNewTaskContainer{
+  padding: 0 10px;
+  /* margin-bottom: 20px; */
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+.addNewTaskContainer input{
+  width: 150px;
+  height: 25px;
+  border: 3px solid var(--main-color);
+  border-radius: 3px;
+  outline: none;
+  font-size: 20px;
+  padding-left: 5px;
+}
+.addNewTaskContainer button{
+  background: var(--main-color);
+  color: white;
+  border: none; 
+  font-weight: bold;
+  cursor: pointer;
+  height: 33px;
+  padding-left: 10px;
+  margin-left: -3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.editTaskBtn{
+  margin-right: 10px;
+}
+
+.editTaskContainer{
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scale:0;
+  transition: scale 0.2s;
+}
+.editTaskContainer.active{
+  scale: 1;
+}
+.editTaskPopup{
+  width: 250px;
+  height: 150px;
+  border-radius: 5px;
+  background: white;
+  padding: 10px 5px;
+  padding-bottom: 25px; 
+}
+
+.editTask{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.editTask p{
+  font-size: 15px;
+  color: var(--main-color);
+}
+.editTask div{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+.editTaskInput{
+  height: 27px;
+  font-size: 15px;
+  border: 2px solid var(--main-color);
+  margin-bottom: 15px;
+  border-radius: 5px;
+  padding-left: 3px;
+}
+.cancelBtn, .saveBtn{
+  height: 35px;
+  cursor: pointer;
+  width: 87px;
+  background: white;
+  border: 1px solid var(--main-color);
+  border-radius: 3px;
+  color: var(--main-color);
+}
+
+.saveBtn{
+  background: var(--main-color);
+  color: white;
+}
+.editTaskContainer .rI{
+  font-size: 13px;
+  margin-top:0;
+  line-height: 0px;
+  height: 5px;
+}

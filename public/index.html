@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="font/bootstrap-icons.css" />
+  </head>
+
+  <body>
+    <h2>Todo List</h2>
+    <div class="addNewTaskContainer">
+      <input type="text" class="inputTask" /><button class="addTaskBtn">
+        Add Task
+      </button>
+    </div>
+    <p class="resultInfo"></p>
+    <div class="taskContainer"></div>
+    <div class="editTaskContainer">
+      <div class="editTaskPopup">
+        <div class="editTask">
+          <p>Enter New Name</p>
+          <input type="text" class="editTaskInput" />
+          <p class="resultInfo rI"></p>
+          <div>
+            <button class="cancelBtn">Cancel</button>
+            <button class="saveBtn">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/script.js" type="module"></script>
+  </body>
+</html>
