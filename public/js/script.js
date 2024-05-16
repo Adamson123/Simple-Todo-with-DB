@@ -13,6 +13,7 @@ let { allTasks } = methods;
 const taskContainer = document.querySelector(".taskContainer");
 
 const openEditTaskPopUp = (index) => {
+
   resultInfoFunc("", 1);
 
   const editTaskContainer = document.querySelector(".editTaskContainer");
@@ -48,6 +49,8 @@ const openEditTaskPopUp = (index) => {
 };
 
 const renderTasks = async () => {
+  try{
+  resultInfoFunc("Loading tasks...", 0);
   allTasks = await fetchTasks();
   let html = "";
   allTasks.forEach((info) => {
@@ -117,6 +120,11 @@ const renderTasks = async () => {
       }
     });
   });
+
+  resultInfoFunc("", 0);
+  }catch(error){
+    resultInfoFunc(error, 0);
+  }
 };
 
 renderTasks();

@@ -16,9 +16,7 @@ const methods = {
       const { data, status } = json;
       return data;
     } catch (error) {
-      if (error.response.data) {
-        methods.resultInfoFunc(error.response.data, 0);
-      }
+      throw new Error(error.response.data);
     }
   },
 
@@ -43,7 +41,7 @@ const methods = {
       methods.resultInfoFunc("", 0);
     } catch (error) {
       if (error.response.data) {
-        methods.resultInfoFunc(error.response.data, 0);
+        throw new Error(error.response.data);
       }
     }
   },
@@ -59,7 +57,7 @@ const methods = {
       methods.allTasks.push(json.data);
     } catch (error) {
       if (error.response.data) {
-        methods.resultInfoFunc(error.response.data, 0);
+        throw new Error(error.response.data);
       }
     }
   },
