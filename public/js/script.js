@@ -25,7 +25,7 @@ const openEditTaskPopUp = (index) => {
   document.querySelector(".saveBtn").onclick = async () => {
     const taskNewName = taskInput.value;
 
-    if (taskNewName) {
+    if (taskNewName && taskNewName.length <= 20) {
       try {
         resultInfoFunc("Updating task...", 1);
         await patchTask(
@@ -38,6 +38,9 @@ const openEditTaskPopUp = (index) => {
         resultInfoFunc(error, 1);
       }
     } else {
+      if (taskNewName.length > 20) {
+        return resultInfoFunc("Task Name should not be more than 20", 1);   
+      }
       resultInfoFunc("Please enter task name", 1);
     }
   };
@@ -109,17 +112,17 @@ const renderTasks = async () => {
     });
   });
 
-  let taskText;
-  document.querySelectorAll(".taskName").forEach((p, index) => {
-    p.addEventListener("input", () => {
-      if (p.textContent.length < 20) {
-        taskText = p.textContent.slice(0, 20);
-      }
-      if (p.textContent.length >= 20) {
-        p.textContent = taskText;
-      }
-    });
-  });
+  // let taskText;
+  // document.querySelectorAll(".taskName").forEach((p, index) => {
+  //   p.addEventListener("input", () => {
+  //     if (p.textContent.length < 20) {
+  //       taskText = p.textContent.slice(0, 20);
+  //     }
+  //     if (p.textContent.length >= 20) {
+  //       p.textContent = taskText;
+  //     }
+  //   });
+  // });
 
   resultInfoFunc("", 0);
   }catch(error){

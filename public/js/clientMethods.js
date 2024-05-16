@@ -48,16 +48,22 @@ const methods = {
   createNewTask: async () => {
     try {
       const inputTask = document.querySelector(".inputTask");
-      const json = await methods.axios.post("http://localhost:4050/v1/task", {
-        task: inputTask.value,
-      });
-      inputTask.value = "";
-      methods.resultInfoFunc("", 0);
-      console.log(methods.allTasks);
-      methods.allTasks.push(json.data);
+      if (inputTask.value.length <= 20) {
+        const json = await methods.axios.post("http://localhost:4050/v1/task", {
+          task: inputTask.value,
+        });
+        inputTask.value = "";
+        methods.resultInfoFunc("", 0);
+
+        return methods.allTasks.push(json.data);
+      } else {
+        throw "Task Name should not be more than 20";
+      }
     } catch (error) {
-      if (error.response.data) {
+      if (typeof error === "object") {
         throw new Error(error.response.data);
+      } else {
+        throw new Error(error);
       }
     }
   },
