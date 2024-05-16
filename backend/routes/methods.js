@@ -29,7 +29,7 @@ const methods = {
       data = await model.create(newData);
     } else {
       const error = createErrorMessage("Please enter task name", 404);
-      console.log('error');
+      console.log("error");
       return next(error);
     }
     res.status(200).json(data);
@@ -41,7 +41,7 @@ const methods = {
 
     if (!data) {
       const error = createErrorMessage("Invalid task id", 404);
-      
+
       return next(error);
     }
 

@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
-const connectionString = 'mongodb://localhost:27017/Todolists';
+const mongoose = require("mongoose");
 
-const connectTodb = async () =>{
+
+const connectTodb = async (url) => {
   try {
-    await mongoose.connect(connectionString);
-    console.log('connected to db');
+    await mongoose.connect(url);
+    console.log("connected to db");
   } catch (error) {
-    console.log('error cannot connect to db');
+    console.log("error cannot connect to db", error);
   }
-}
+};
 
 module.exports = connectTodb;

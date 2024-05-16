@@ -4,6 +4,7 @@ const connectTodb = require("./backend/mongo/connectTodb");
 const router = require("./backend/routes/route");
 const notFound = require("./backend/middleware/notFound");
 const errorHandler = require("./backend/middleware/errorHandler");
+require("dotenv").config()
 
 app.use(express.static("./public"));
 app.use(express.json());
@@ -16,7 +17,7 @@ app.use(errorHandler);
 
 const start = async () => {
   try {
-    await connectTodb();
+    await connectTodb(process.env.MONGO_URI);
     app.listen(4050, () => {
       console.log("server is awake on http://localhost:4050");
     });

@@ -10,28 +10,36 @@ const {
 } = methods;
 
 let { allTasks } = methods;
-const taskContainer = document.querySelector(".taskContainer")
+const taskContainer = document.querySelector(".taskContainer");
 
 const openEditTaskPopUp = (index) => {
   resultInfoFunc("", 1);
-  
+
   const editTaskContainer = document.querySelector(".editTaskContainer");
   editTaskContainer.classList.add("active");
 
+  const taskName = document.querySelectorAll(".taskName");
   const taskInput = document.querySelector(".editTaskInput");
-  taskInput.value = "";
-  document.querySelector(".saveBtn").addEventListener("click", () => {
-    const taskName = document.querySelectorAll(".taskName");
+  taskInput.value = taskName[index].textContent;
+  document.querySelector(".saveBtn").onclick = async () => {
     const taskNewName = taskInput.value;
 
     if (taskNewName) {
-      patchTask({ newValue: taskNewName, id: allTasks[index]._id }, "task");
-      renderTasks();
-      editTaskContainer.classList.remove("active");
+      try {
+        resultInfoFunc("Updating task...", 1);
+        await patchTask(
+          { newValue: taskNewName, id: allTasks[index]._id },
+          "task"
+        );
+        renderTasks();
+        editTaskContainer.classList.remove("active");
+      } catch (error) {
+        resultInfoFunc(error, 1);
+      }
     } else {
       resultInfoFunc("Please enter task name", 1);
     }
-  });
+  };
 
   document.querySelector(".cancelBtn").addEventListener("click", () => {
     resultInfoFunc("", 1);
@@ -59,13 +67,24 @@ const renderTasks = async () => {
 
   taskContainer.innerHTML = html;
   document.querySelectorAll(".taskState").forEach((box, index) => {
-    box.addEventListener("click", () => {
+    box.addEventListener("click", async () => {
+      let bool;
       if (allTasks[index].completed) {
-        patchTask({ newValue: false, id: allTasks[index]._id }, "completed");
+        bool = false;
       } else {
-        patchTask({ newValue: true, id: allTasks[index]._id }, "completed");
+        bool = true;
       }
-      renderTasks();
+      try {
+        resultInfoFunc("Updating task...", 0);
+        await patchTask(
+          { newValue: bool, id: allTasks[index]._id },
+          "completed"
+        );
+        renderTasks();
+        resultInfoFunc("", 0);
+      } catch (error) {
+        resultInfoFunc(error, 0);
+      }
     });
   });
 
@@ -75,10 +94,15 @@ const renderTasks = async () => {
     });
   });
   document.querySelectorAll(".deleteTaskBtn").forEach((btn, index) => {
-    btn.addEventListener("click", () => {
-      deleteTask(allTasks[index]._id);
-
-      renderTasks();
+    btn.addEventListener("click", async () => {
+      try {
+        resultInfoFunc("Deleting task...", 0);
+        await deleteTask(allTasks[index]._id);
+        renderTasks();
+        resultInfoFunc("", 0);
+      } catch (error) {
+        resultInfoFunc(error, 0);
+      }
     });
   });
 
@@ -93,18 +117,26 @@ const renderTasks = async () => {
       }
     });
   });
-
 };
 
 renderTasks();
 
-const scrollToEnd = async () =>{
-  taskContainer.scrollTop = taskContainer.scrollHeight - taskContainer.clientHeight;
-}
+const scrollToEnd = async () => {
+  taskContainer.scrollTop =
+    taskContainer.scrollHeight - taskContainer.clientHeight;
+};
 
-document.querySelector(".addTaskBtn").addEventListener("click", () => {
-  createNewTask();
-  renderTasks();
+document.querySelector(".addTaskBtn").addEventListener("click", async () => {
+
+  try {
+    resultInfoFunc("Adding New task...", 0);
+    await createNewTask();
+    renderTasks();
+    resultInfoFunc("", 0);
+    scrollToEnd();
+  } catch (error) {
+    resultInfoFunc(error, 0);
+  }
   
-  scrollToEnd();
+
 });
