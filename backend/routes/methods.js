@@ -28,7 +28,7 @@ const methods = {
     if (newData.task) {
       data = await model.create(newData);
     } else {
-      const error = createErrorMessage("Please enter task name", 404);
+      const error = createErrorMessage("Please enter task name", 400);
       console.log("error");
       return next(error);
     }
@@ -40,7 +40,7 @@ const methods = {
     const data = await model.findOneAndUpdate({ _id: taskID }, newData);
 
     if (!data) {
-      const error = createErrorMessage("Invalid task id", 404);
+      const error = createErrorMessage("Invalid task id", 400);
 
       return next(error);
     }
@@ -51,7 +51,7 @@ const methods = {
     const taskID = req.params.id;
     const data = await model.findOneAndDelete({ _id: taskID });
     if (!data) {
-      const error = createErrorMessage("Invalid task id", 404);
+      const error = createErrorMessage("Invalid task id", 400);
       return next(error);
     }
     res.status(200).json(data);
