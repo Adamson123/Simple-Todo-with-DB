@@ -104,7 +104,8 @@
     "xmlhttprequest-ssl": "^2.0.0"
   },
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
